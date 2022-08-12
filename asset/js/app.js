@@ -46,13 +46,29 @@ function displayMaskedWord() {
   });
 }
 function KeyboardCreate(letter) {
+
   const keyboard = document.querySelector("#keyboard");
+  let life = 7;
+  let numero = 1;
   for (let i = 0; i < letter.length; i++) {
     const btnLetter = document.createElement("button");
     keyboard.appendChild(btnLetter);
     btnLetter.textContent = letter[i];
+    btnLetter.className = "btnLetter"
     btnLetter.addEventListener("click", (e) => {
       indexof(e.target.textContent, randomWord);
+      btnLetter.disabled=true
+      
+      if(randomWord.indexOf(e.target.textContent) === -1 ){
+        life--
+        numero++
+        lifePoint(life);
+        changePicture(numero);
+      }
+      
+
+
+
     });
   }
 }
@@ -62,12 +78,13 @@ function indexof(btnText, randomWord) {
   let position = [];
   //   let tabRandomWord = randomWord.split("");
   //   console.log(tabRandomWord);
-
   for (let i = 0; i < randomWord.length; i++) {
     if (randomWord[i] === btnText) {
       position.push(i);
       updateMaskedWord(position, btnText);
+  
     }
+    
   }
 }
 
@@ -80,6 +97,20 @@ function updateMaskedWord(position, btnText) {
     // console.log(updateWordTab);
   }
   wordGen.textContent = updateWordTab.join(" ");
+}
+
+function lifePoint(life){
+  const keyboard = document.querySelector("#keyboard");
+   if(life === 0 ){
+    keyboard.style.display = "none"
+   }
+}
+
+function changePicture(numero){
+  // console.log(numero);
+  const img = document.querySelector("#imgPendu");
+  img.src =`/asset/img/image-${numero}.jpg`;
+  
 }
 
 KeyboardCreate(letter);
