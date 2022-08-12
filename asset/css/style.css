@@ -1,0 +1,14 @@
+.containerWord {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+#btnGen {
+  font-size: 25px;
+  background: none;
+  border: none;
+  color: rgb(105, 189, 22);
+}
