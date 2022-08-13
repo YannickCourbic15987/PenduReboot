@@ -65,10 +65,6 @@ function KeyboardCreate(letter) {
         lifePoint(life);
         changePicture(numero);
       }
-      
-
-
-
     });
   }
 }
@@ -82,12 +78,10 @@ function indexof(btnText, randomWord) {
     if (randomWord[i] === btnText) {
       position.push(i);
       updateMaskedWord(position, btnText);
-  
     }
     
   }
 }
-
 function updateMaskedWord(position, btnText) {
   const wordGen = document.querySelector("#wordGen");
   //   console.log(position);
@@ -97,21 +91,46 @@ function updateMaskedWord(position, btnText) {
     // console.log(updateWordTab);
   }
   wordGen.textContent = updateWordTab.join(" ");
-}
-
-function lifePoint(life){
-  const keyboard = document.querySelector("#keyboard");
-   if(life === 0 ){
-    keyboard.style.display = "none"
+  console.log(wordGen.textContent);
+   if(wordGen.textContent.indexOf("*") === -1 ){
+    winGame()
    }
 }
+function lifePoint(life){
+  const keyboard = document.querySelector("#keyboard");
+  const heart = document.querySelector(`#heart-${life}`);
+  const containerLife = document.querySelector('#containerLife');
+  console.log(heart);
+   if(life === 0 ){
+    keyboard.style.display = "none"
+    containerLife.textContent = "game over";
+    containerLife.style.textTransform = "uppercase"
+    containerLife.style.fontFamily = 'Silkscreen';
+    looseGame();
+   }
+  
 
+    heart.remove();
+}
 function changePicture(numero){
   // console.log(numero);
   const img = document.querySelector("#imgPendu");
   img.src =`/asset/img/image-${numero}.jpg`;
-  
+ 
 }
 
+function looseGame(){
+  const loosePicture = document.querySelector("#loosePicture");
+  const keyboardResize = document.querySelector(".keyboardResize");
+  if(loosePicture.classList.contains('hidden')){
+    loosePicture.classList.remove("hidden")
+    loosePicture.classList.add('display');
+    keyboardResize.style.height = "60vh"
+  }
+}
+
+function winGame(){
+  console.log("winner");
+}
 KeyboardCreate(letter);
 displayMaskedWord();
